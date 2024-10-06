@@ -1,89 +1,60 @@
 # Analyzing-Click-Through-Rates-A-Deep-Dive-into-User-Engagement-
 The main goal is to develop a machine learning model capable of predicting whether a user will click on an advertisement. This prediction is crucial for advertisers to optimize their campaigns, improve user targeting, and ultimately increase return on investment (ROI).
 
-Overview
+Predicting Ads Click-Through Rate: A Case Study in Classification on Imbalanced Data
+This project focuses on predicting the Click-Through Rate (CTR) of online advertisements using a dataset containing information about ad impressions, user interactions, and ad features. The primary goal is to build a robust classification model that can accurately identify instances where users are likely to click on ads, even in the face of imbalanced data. This project demonstrates the process of handling class imbalance in classification, highlighting the challenges and solutions involved.
 
-Click-through rate (CTR) is a crucial metric in digital marketing, representing the ratio of users who clicked on an ad or link to the total number of users who viewed the ad or link. In simpler terms, CTR is calculated using the formula:
-CTR=ClicksImpressions\text{CTR} = \frac{\text{Clicks}}{\text{Impressions}}CTR=ImpressionsClicks​
-Analyzing the click-through rate helps companies determine which demographics are most likely to engage with their ads. A high CTR serves as validation of the effectiveness of advertising strategies.
-Dataset Description
+Project Goal
+The main goal is to develop a machine learning model capable of predicting whether a user will click on an advertisement. This prediction is crucial for advertisers to optimize their campaigns, improve user targeting, and ultimately increase return on investment (ROI).
 
-The dataset used for this case study was submitted by Gaurav Dutta on Kaggle and contains the following features:
-Daily Time Spent on Site: The average time a user spends on the website daily (in minutes).
-Age: The age of the user (in years).
-
-Area Income: The average income of the user’s area (in dollars).
-Daily Internet Usage: The total time spent by the user on the internet daily (in minutes).
-Ad Topic Line: The title or topic of the ad displayed to the user.
-City: The city where the user resides.
-
-Gender: The gender of the user (Male/Female).
-Country: The country where the user is located.
-Timestamp: The date and time when the user visited the website.
-Clicked on Ad: The target variable indicating whether the user clicked on the ad (1 if clicked, 0 otherwise).
-
-Project Goals
-The primary goal of this project is to analyze the click-through rate of a marketing campaign and predict whether users are likely to click on an advertisement based on their characteristics.
 Project Process
 
-Data Loading and Exploration:
-Load the dataset using pandas and explore its structure, data types, and any missing values.
-Perform initial exploratory data analysis (EDA) to understand distributions and relationships among features.
+Data Loading and Exploration: Loaded the ads dataset using pandas and explored its structure, data types, and missing values.
+Data Visualization: Created visualizations to understand the distribution of click status (clicked vs. not clicked), numerical features (user age, ad duration, impression count), and categorical features (region, ad type, device type).
+Data Preprocessing: Handled class imbalance by oversampling the minority class (ads clicked) using the resample method from scikit-learn.
+Feature Engineering: Encoded categorical features using LabelEncoder and created new features based on existing data to improve model performance.
+Model Training: Trained a Random Forest classifier on the oversampled data to predict click status.
+Model Evaluation: Evaluated the model's performance using metrics like the classification report, accuracy score, precision, recall, F1-score, and AUC-ROC.
+Comparison with Original Data: Applied the trained model to the original dataset and compared predictions with actual click statuses.
+Visualization of Results: Created a bar chart to visualize the classification accuracy and feature importance.
 
-Data Visualization:
-Create visualizations (such as histograms, scatter plots, and box plots) to understand:
-The distribution of daily time spent on the site.
-The age distribution of users.
-The relationship between area income and click rates.
-Gender-based differences in click-through rates.
+Methods
+Data Exploration and Preprocessing: The project starts with an in-depth analysis of the dataset, including:
+Examining the distribution of classes in the target variable (click_status) to understand the level of imbalance.
+Visualizing the distributions of key numerical features like ad duration, impression count, and user demographics.
+Analyzing the distribution and relationships of categorical features such as region, ad type, and device type.
+Handling Class Imbalance: Since the dataset exhibits a significant imbalance between the click_status classes (more instances of non-clicks than clicks), the project utilizes oversampling to balance the classes. This involves replicating instances from the minority class to achieve an equal representation of both classes.
+Feature Selection: To identify the most impactful features for prediction, the project employs feature importance techniques. This involves training a Random Forest model and analyzing the feature importance scores to identify the top variables influencing the click_status prediction.
 
-Data Preprocessing:
-Handle any missing values if present.
-Encode categorical variables (e.g., Gender, City, Country) using LabelEncoder or one-hot encoding.
-Scale numerical features to ensure consistent ranges using techniques like StandardScaler or MinMaxScaler.
+Model Training: Using the balanced dataset and selected features, a Random Forest classifier is trained to predict the click_status.
+Model Evaluation: The trained model is evaluated on the test dataset using metrics suitable for imbalanced datasets, such as:
+Precision: Proportion of correctly predicted positive instances out of all predicted positives.
+Recall: Proportion of correctly predicted positive instances out of all actual positives.
+F1-Score: Harmonic mean of precision and recall.
+Accuracy: Overall proportion of correctly classified instances.
 
-Handling Class Imbalance:
-Assess class distribution for the target variable (Clicked on Ad).
-If necessary, employ techniques such as oversampling the minority class or using SMOTE (Synthetic Minority Over-sampling Technique) to balance the dataset.
+Results
+The developed Random Forest model achieved impressive performance on the test dataset, demonstrating high precision, recall, and F1-score for both classes. The high recall for the "clicked" class is particularly noteworthy, indicating that the model is effective at identifying instances where users are likely to click on ads.
+Features
 
-Feature Selection:
-Evaluate feature importance using correlation matrices and feature importance from models like Random Forest to select relevant features for model training.
+Key Features: The project identified features such as ad duration, user age, impression count, region, ad type, and device type as having a significant influence on predicting click-through rates.
+Unique Identifier: While ad_id was initially identified as a highly important feature, it was removed during model training as it is not directly relevant for prediction.
 
-Model Training:
-Split the dataset into training and test sets.
-Train a classification model (e.g., Random Forest, Logistic Regression, or XGBoost) on the training data to predict click status.
+Tools
+Python: The core programming language for data processing, analysis, and model building.
+Pandas: A powerful library for data manipulation and analysis.
+Scikit-learn (sklearn): A widely used library for machine learning algorithms, including Random Forest classifiers.
+Imbalanced-learn (imblearn): A library specifically designed for handling imbalanced datasets, including oversampling techniques like SMOTE.
+Matplotlib and Seaborn: Libraries for data visualization.
 
-Model Evaluation:
-Evaluate the model's performance on the test dataset using metrics suitable for classification problems, such as:
-Accuracy: Overall correctness of the model.
-Precision: Proportion of true positive predictions out of all positive predictions.
-Recall: Proportion of true positives out of all actual positive cases.
-F1-Score: Harmonic mean of precision and recall, useful for imbalanced datasets.
-AUC-ROC: Measures the model's ability to distinguish between classes.
+Importance
+This project has significant implications for the digital advertising industry:
+Campaign Optimization: The model can help advertisers better assess which ads are likely to engage users, leading to more effective ad placements and increased click-through rates.
+Cost Efficiency: By identifying patterns associated with user interactions, the model can assist advertisers in allocating their budgets more effectively.
+User Targeting: The model can be used to identify user segments with higher engagement, allowing advertisers to develop targeted advertising strategies.
 
-Results Visualization:
-Create visualizations to present model performance metrics and feature importance.
-Generate a bar chart or confusion matrix to visualize the classification results.
-
-Key Findings:
-The analysis may reveal significant relationships between user characteristics (e.g., age, area income) and the likelihood of clicking on ads.
-Features like Daily Time Spent on Site and Daily Internet Usage may show strong correlations with click-through rates.
-Understanding demographic differences, such as gender and age, can provide insights into targeted advertising strategies.
-
-Tools Used
-Python: The primary programming language for data processing, analysis, and modeling.
-Pandas: For data manipulation and analysis.
-Scikit-learn (sklearn): For machine learning algorithms and model evaluation.
-Imbalanced-learn (imblearn): For handling imbalanced datasets.
-Matplotlib and Seaborn: For data visualization.
-
-Importance of the Study
-
-This project holds significant implications for digital advertising:
-Optimization of Marketing Campaigns: By predicting CTR, advertisers can refine their campaigns, leading to better-targeted ads and improved user engagement.
-Enhanced Decision-Making: Insights from the model can help in making data-driven decisions regarding ad placements and budgets.
-User Insights: Understanding which user demographics are more likely to engage with ads can guide future marketing strategies.
 Conclusion
-This case study illustrates the process of analyzing and predicting click-through rates in digital marketing. By effectively handling class imbalance and employing robust machine learning techniques, the project showcases the potential of data-driven strategies to enhance advertising effectiveness and improve ROI.
+This project showcases the process of building a robust classification model for predicting ads click-through rates, addressing the challenges associated with imbalanced data. By utilizing appropriate methods for handling class imbalance, feature selection, and model evaluation, the project demonstrates the potential of machine learning to improve advertising strategies and decision-making in the digital marketing industry.AUC (Area Under the ROC Curve): Measures the overall ability of the model to distinguish between the two classes.
+
 References
 Ads Click Through Rate Prediction using Python: Aman KharwalKharwal & Lemartinezbahttps://thecleverprogrammer.com/2023/01/16/ads-click-through-rate-prediction-using-python/
